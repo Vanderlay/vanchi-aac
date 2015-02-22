@@ -4,7 +4,8 @@ class Home extends Master_Controller
 {
 	function __construct()
 	{
-		$this->template_section = 'Justified Nav';
+		$themes = $this->config->item('themes');
+		$this->template_section = $themes['justified nav'];
 		$this->include_standard = true;
 		parent::__construct();
 	}
