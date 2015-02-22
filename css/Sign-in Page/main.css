@@ -1,0 +1,30 @@
+.logo {
+	height: 80px;
+	width: 400px;
+}
+
+.startPageLeft {
+	width: 80%;
+}
+
+.startPageEvents {
+	text-align: left;
+}
+
+.startPageEventImage {
+	width: 150px;
+	height: 150px;
+}
+
+.eventDate {
+	padding-top: 15px;
+	font-weight: bold;
+}
+
+.push-right {
+	float: right;
+}
+
+.push-left {
+	float: left;
+}

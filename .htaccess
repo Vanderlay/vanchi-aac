@@ -1,0 +1,62 @@
+# Admin auth
+AuthUserFile /var/www/hittatillskott/.htpasswd
+AuthName "Admin"
+AuthType Basic
+
+<IfModule mod_rewrite.c>
+  
+    RewriteEngine on
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteCond %{HTTP_HOST} !^www.hittatillskott.se$ [NC]
+    #RewriteRule ^(.*)$ http://www.hittatillskott.se/$1 [L,R=301]
+    RewriteRule ^(.*)$ index.php?/$1 [L]
+
+</IfModule>
+
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+
+<IfModule !mod_rewrite.c>
+    # Without mod_rewrite, route 404's to the front controller
+    ErrorDocument 404 /index.php
+</IfModule>
+
+
+<Files "admin*">
+  require valid-user
+</Files>
+
+<FilesMatch "\.(html|javascript|js|script)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>
+
+# Enable caching to speed up delivery times
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/x-javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    <FilesMatch "\admin*$">
+        ExpiresActive Off
+    </FilesMatch>
+    
+</IfModule>
+
+# Enable GZIP compression
+<ifmodule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+</ifmodule>
