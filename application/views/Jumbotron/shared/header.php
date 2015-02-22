@@ -14,12 +14,12 @@
 			</a>
 		</div>
 		<div class="navbar-collapse collapse">
-			<form class="navbar-form navbar-right" role="form">
+			<form class="navbar-form navbar-right login-form" role="form">
 				<div class="form-group">
-					<input type="text" placeholder="Email" class="form-control">
+					<input type="text" placeholder="Account name" class="form-control login-username">
 				</div>
 				<div class="form-group">
-					<input type="password" placeholder="Password" class="form-control">
+					<input type="password" placeholder="Password" class="form-control login-password">
 				</div>
 				<button type="submit" class="btn btn-success">
 					Sign in

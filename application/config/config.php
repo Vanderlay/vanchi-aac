@@ -367,23 +367,22 @@ $config['proxy_ips'] = '';
 */
 
 $config['themes'] = array(
-	'basic',
-	'blog',
-	'bootstrap theme',
-	'carousel',
-	'cover',
-	'dashboard',
-	'fixed navbar',
-	'jumbotron',
-	'justified nav',
-	'narrow jumbotron',
-	'navbar',
-	'offcanvas',
-	'sign-in page',
-	'static top navbar',
-	'sticky footer',
-	'sticky footer with navbar',
-	'template'
+	0 => 'basic',
+	1 => 'blog',
+	2 => 'bootstrap theme',
+	3 => 'carousel',
+	4 => 'cover',
+	5 => 'dashboard',
+	6 => 'fixed navbar',
+	7 => 'jumbotron',
+	8 => 'justified nav',
+	9 => 'narrow jumbotron',
+	10 => 'navbar',
+	11 => 'offcanvas',
+	12 => 'sign-in page',
+	13 => 'static top navbar',
+	14 => 'sticky footer',
+	15 => 'sticky footer with navbar'
 );
 
 /* End of file config.php */

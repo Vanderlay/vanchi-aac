@@ -40,8 +40,14 @@
 
 $route['default_controller'] 	= "home";
 $route['404_override'] 			= '';
-$route['users']					= "user_profiles";
-$route['users/(.*?)$']			= "user_profiles/$1";
+
+/*
+| ------------------
+| User routes
+|
+*/
+
+$route['ajax/login'] = 'api/user/login';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

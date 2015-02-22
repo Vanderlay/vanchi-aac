@@ -49,11 +49,10 @@ class Master_Controller extends CI_Controller
 	protected $template_section = '';
 
 	/**
-	 * If we wish to only view a single template
-	 * and exclude all the function views
-	 * @var boolean
+	 * Load default
+	 * @var bool
 	 */
-	protected $include_standard = TRUE;
+	protected $loadDefaults = TRUE;
 	
 	
 	/**
@@ -65,15 +64,9 @@ class Master_Controller extends CI_Controller
 		parent::__construct();
 		$this->load->library('tank_auth');
 		$this->load->helper('url');
-		/**
-		 * We require login access before displaying anything on the page
-		 */
-		/*if(!$this->tank_auth->is_logged_in()) {
-			if(uri_string() != 'users/login') {
-				redirect('/users/login');
-			}
-		}*/
-		$this->loadDefaults();
+		if($this->loadDefaults) {
+			$this->loadDefaults();
+		}
 	}
 
 	public function loadDefaults()
@@ -102,19 +95,17 @@ class Master_Controller extends CI_Controller
 
 	public function autoJS($ignoredFiles = array())
 	{
-		array_push($ignoredFiles, '.', '..', '.svn');
-		$jquery = FALSE;
+		array_push($ignoredFiles, '.', '..', '.svn', '.git');
+		$this->view_data['autoJS'][] = '/js/Standard/jquery.js';
 		foreach(scandir(FCPATH . 'js/' . ucFirst($this->template_section)) as $filename) {
 			if(!in_array($filename, $ignoredFiles)) {
-				if($filename == 'jquery.js') {
-					$jquery = TRUE;
-				} else {
-					$this->view_data['autoJS'][] = '/js/' . $this->template_section . '/' . $filename;
-				}
+				$this->view_data['autoJS'][] = '/js/' . $this->template_section . '/' . $filename;
 			}
 		}
-		if($jquery) {
-			array_unshift($this->view_data['autoJS'], '/js/' . $this->template_section . '/' . 'jquery.js');
+		foreach(scandir(FCPATH . 'js/Standard') as $filename) {
+			if(!in_array($filename, $ignoredFiles) && $filename != 'jquery.js') {
+				$this->view_data['autoJS'][] = '/js/Standard/' . $filename;
+			} 
 		}
 		$this->view_data['autoJS'] = array_unique($this->view_data['autoJS']);
 	}
@@ -122,7 +113,7 @@ class Master_Controller extends CI_Controller
 
 	public function autoCSS($ignoredFiles = array())
 	{
-		array_push($ignoredFiles, '.', '..', '.svn');
+		array_push($ignoredFiles, '.', '..', '.svn', '.git');
 		foreach(scandir(FCPATH . 'css/' . ucFirst($this->template_section)) as $filename) {
 			if(!in_array($filename, $ignoredFiles)) {
 				$this->view_data['autoCSS'][] = '/css/' . $this->template_section . '/' . $filename;
@@ -165,10 +156,5 @@ class Master_Controller extends CI_Controller
 		{
 			$this->load->view($append, $this->view_data);
 		}
-	}
-
-	public function setDefaultTemplateSection()
-	{
-		$this->template_section = 'functions';
 	}
 }
